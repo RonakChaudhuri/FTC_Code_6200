@@ -30,10 +30,8 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
@@ -50,9 +48,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list.
  */
 
-@Autonomous(name="Auto_Parking", group="Linear Opmode")
+@Autonomous(name="Auto_Four_Ring", group="Linear Opmode")
 //@Disabled
-public class Auto_Parking extends LinearOpMode {
+public class AutoFourRing extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -96,6 +94,19 @@ public class Auto_Parking extends LinearOpMode {
         turnRightDistance(.3, 3);
         moveDistance(.6, 32);
         turnRightDistance(.3, 3);
+        moveDistanceStrafe(.5, 17);
+        turnRightDistance(.3, 2);
+        sleep(1000); //Drop off wobble goal
+        moveDistance(.6, 25);
+        turnRightDistance(.3, 3);
+        moveDistance(.6, 18);
+        turnRightDistance(.3, 1);
+        sleep(1000); //Drop off wobble goal
+        moveDistance(.6, -41);
+
+
+
+
 
     }
 
