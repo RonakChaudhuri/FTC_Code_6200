@@ -53,7 +53,7 @@ import com.qualcomm.robotcore.util.Range;
  */
 
 @Autonomous(name="Auto", group="Linear Opmode")
-@Disabled
+//@Disabled
 public class Auto extends LinearOpMode {
 
     // Declare OpMode members.
