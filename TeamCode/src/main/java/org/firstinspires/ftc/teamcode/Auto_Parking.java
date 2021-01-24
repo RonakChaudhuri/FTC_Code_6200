@@ -93,9 +93,9 @@ public class Auto_Parking extends LinearOpMode {
         runtime.reset();
 
         moveDistance(.6, 33);
-        turnRightDistance(.3, 3);
-        moveDistance(.6, 32);
-        turnRightDistance(.3, 3);
+        //turnRightDistance(.3, 3);
+        moveDistance(.6, 28);
+        //turnRightDistance(.3, 3);
 
     }
 

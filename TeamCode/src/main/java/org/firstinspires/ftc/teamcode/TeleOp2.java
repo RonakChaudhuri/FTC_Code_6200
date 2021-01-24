@@ -31,6 +31,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -59,8 +60,10 @@ public class TeleOp2 extends LinearOpMode {
     private DcMotor leftRear = null;
     private DcMotor rightFront = null;
     private DcMotor rightRear = null;
-   // private Servo scoopServo = null;
-    private DcMotor liftMotor = null;
+    private CRServo beltServo = null;
+    private DcMotor rightIntakeMotor = null;
+    private DcMotor leftIntakeMotor = null;
+    //private DcMotor liftMotor = null;
 
     @Override
     public void runOpMode() {
@@ -75,20 +78,24 @@ public class TeleOp2 extends LinearOpMode {
         leftRear  = hardwareMap.get(DcMotor.class, "left_rear");
         rightFront = hardwareMap.get(DcMotor.class, "right_front");
         rightRear = hardwareMap.get(DcMotor.class, "right_rear");
-        //scoopServo = hardwareMap.get(Servo.class, "scoop_servo");
-        liftMotor = hardwareMap.get(DcMotor.class, "lift_motor");
+        beltServo = hardwareMap.get(CRServo.class, "belt_servo");
+        rightIntakeMotor = hardwareMap.get(DcMotor.class, "intake_right");
+        leftIntakeMotor = hardwareMap.get(DcMotor.class, "intake_left");
+
+        //liftMotor = hardwareMap.get(DcMotor.class, "lift_motor");
 
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
-        leftFront.setDirection(DcMotor.Direction.FORWARD);
-        leftRear.setDirection(DcMotor.Direction.FORWARD);
+        //leftFront.setDirection(DcMotor.Direction.REVERSE);
+        //leftRear.setDirection(DcMotor.Direction.REVERSE);
         rightFront.setDirection(DcMotor.Direction.REVERSE);
         rightRear.setDirection(DcMotor.Direction.REVERSE);
+        leftIntakeMotor.setDirection(DcMotor.Direction.REVERSE);
 
 
 
@@ -106,20 +113,25 @@ public class TeleOp2 extends LinearOpMode {
             double leftRearPower;
             double rightFrontPower;
             double rightRearPower;
-
+            double intakeMotorClosePower;
+            double intakeMotorOpenPower;
+            double motorOpen = gamepad1.right_trigger;
+            double motorClose = gamepad1.left_trigger;
 
 
             double drive = Math.hypot(gamepad1.left_stick_x, gamepad1.left_stick_y);
             double turn  =  Math.atan2(gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
             double strafe = gamepad1.right_stick_x;
+            intakeMotorOpenPower = Range.clip(motorOpen, 0.0, 1.0);
+            intakeMotorClosePower = Range.clip(motorClose, 0.0, 1.0);
 
 
-            double liftMotorPowerDown;
-            double liftMotorPowerUp;
+            //double liftMotorPowerDown;
+            //double liftMotorPowerUp;
             //double liftDown = Math.pow(gamepad1.left_trigger, 3);
             //double liftUp =   Math.pow(gamepad1.right_trigger, 3);
-            double liftDown = gamepad1.left_trigger;
-            double liftUp = gamepad1.right_trigger;
+            //double liftDown = gamepad1.left_trigger;
+            //double liftUp = gamepad1.right_trigger;
 
 
             rightFrontPower = Range.clip(drive * Math.cos(turn) + strafe, -1.0, 1.0);
@@ -127,23 +139,69 @@ public class TeleOp2 extends LinearOpMode {
             leftFrontPower = Range.clip(drive * Math.sin(turn) - strafe, -1.0, 1.0);
             leftRearPower = Range.clip(drive * Math.cos(turn) - strafe, -1.0, 1.0);
 
-            liftMotorPowerDown = Range.clip(liftDown, 0, 1.0);
-            liftMotorPowerUp = Range.clip(liftUp, 0, 1.0);
+            //liftMotorPowerDown = Range.clip(liftDown, 0, 1.0);
+            //liftMotorPowerUp = Range.clip(liftUp, 0, 1.0);
 
             leftFront.setPower(leftFrontPower * 0.9);
             leftRear.setPower(leftRearPower * 0.9);
             rightFront.setPower(rightFrontPower * 0.9);
             rightRear.setPower(rightRearPower * 0.9);
 //
-//            if(gamepad1.x)
-//           {
-//                scoopServo.setPosition(.32);
-//            }
-//
-//            if(gamepad1.b)
+           // if(gamepad2.x)
+           //{
+                //beltServo.setPower(1);
+            //}
+
+
+          if(gamepad2.dpad_right)
+          {
+              beltServo.setPower(1);
+          }
+          if(gamepad2.dpad_left)
+          {
+              beltServo.setPower(0);
+          }
+          if(gamepad2.dpad_down)
+          {
+              beltServo.setPower(-1);
+          }
+
+
+          /*  if (gamepad2.atRest())
+            {
+                beltServo.setPower(0);
+            } */
+
+//            if(gamepad2.left_trigger > 0)
 //            {
-//                scoopServo.setPosition(0);
+//                leftIntakeMotor.setPower(intakeMotorClosePower * 0.75);
+//                rightIntakeMotor.setPower(intakeMotorClosePower * 0.75);
 //            }
+//            else if(gamepad2.right_trigger > 0)
+//            {
+//                leftIntakeMotor.setPower(-intakeMotorOpenPower);
+//                rightIntakeMotor.setPower(-intakeMotorOpenPower);
+//            }
+//            else
+//            {
+//                leftIntakeMotor.setPower(0);
+//                rightIntakeMotor.setPower(0);
+//            }
+            if(gamepad2.right_bumper)
+            {
+                leftIntakeMotor.setPower(1);
+                rightIntakeMotor.setPower(1);
+            }
+            if(gamepad2.left_bumper)
+            {
+                leftIntakeMotor.setPower(-.8);
+                rightIntakeMotor.setPower(-.8);
+            }
+            else
+            {
+                leftIntakeMotor.setPower(0);
+                rightIntakeMotor.setPower(0);
+            }
 
 //            if (gamepad1.left_trigger > 0)
 //            {
@@ -158,18 +216,18 @@ public class TeleOp2 extends LinearOpMode {
 //                liftMotor.setPower(0);
 //            }
 
-            if (gamepad1.left_trigger > 0)
-            {
-                liftMotor.setPower(-liftMotorPowerDown * .8);
-            }
-            else if (gamepad1.right_trigger > 0)
-            {
-                liftMotor.setPower(liftMotorPowerUp * .8);
-            }
-            else
-            {
-                liftMotor.setPower(0);
-            }
+//            if (gamepad1.left_trigger > 0)
+//            {
+//                liftMotor.setPower(-liftMotorPowerDown * .8);
+//            }
+//            else if (gamepad1.right_trigger > 0)
+//            {
+//                liftMotor.setPower(liftMotorPowerUp * .8);
+//            }
+//            else
+//            {
+//                liftMotor.setPower(0);
+//            }
 
 
 
@@ -178,8 +236,11 @@ public class TeleOp2 extends LinearOpMode {
             telemetry.addData("Motors", "left front (%.2f), right front(%.2f), " +
                     "left rear(%.2f), right rear(%.2f)", leftFrontPower, rightFrontPower, leftRearPower,
                     rightRearPower);
+            //telemetry.addData("Servo", "servo direction (%.2f), servo power (%.2f)", beltServo.getDirection(), beltServo.getPower());
             telemetry.update();
         }
+
+
     }
 }
 
