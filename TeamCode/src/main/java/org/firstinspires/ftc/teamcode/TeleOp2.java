@@ -134,10 +134,10 @@ public class TeleOp2 extends LinearOpMode {
             //double liftUp = gamepad1.right_trigger;
 
 
-            rightFrontPower = Range.clip(drive * Math.cos(turn) + strafe, -1.0, 1.0);
-            rightRearPower = Range.clip(drive * Math.sin(turn) + strafe, -1.0, 1.0);
-            leftFrontPower = Range.clip(drive * Math.sin(turn) - strafe, -1.0, 1.0);
-            leftRearPower = Range.clip(drive * Math.cos(turn) - strafe, -1.0, 1.0);
+            rightFrontPower = Range.clip(drive * Math.cos(turn) - strafe, -1.0, 1.0);
+            rightRearPower = Range.clip(drive * Math.sin(turn) - strafe, -1.0, 1.0);
+            leftFrontPower = Range.clip(drive * Math.sin(turn) + strafe, -1.0, 1.0);
+            leftRearPower = Range.clip(drive * Math.cos(turn) + strafe, -1.0, 1.0);
 
             //liftMotorPowerDown = Range.clip(liftDown, 0, 1.0);
             //liftMotorPowerUp = Range.clip(liftUp, 0, 1.0);
