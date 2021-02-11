@@ -102,15 +102,15 @@ public class AutoNoRing extends LinearOpMode {
 //        turnRightDistance(.3, 3);
 
         moveDistance(.3, 33);
+        //turnRightDistance(.3, 3);
+        moveDistance(.3, 39);
         turnRightDistance(.3, 3);
-        moveDistance(.3, 42);
-        turnRightDistance(.3, 3);
-        moveDistanceStrafe(.3, 15);
+        //moveDistanceStrafe(.3, 15);
         sleep(1000); //Drop off wobble goal
-        moveDistance(.3, -10);
-        moveDistanceStrafe(.3, -25);
-        moveDistance(.3, 10);
-        turnRightDistance(.3, 3);
+        moveDistance(.7, -10);
+        //moveDistanceStrafe(.3, -25);
+        //moveDistance(.3, 10);
+        turnLeftDistance(.3, 3);
 
     }
 
