@@ -125,6 +125,7 @@ public class WebcamAuto extends LinearOpMode {
                         telemetry.addData("# Object Detected", updatedRecognitions.size());
                         // step through the list of recognitions and display boundary info.
                         int i = 0;
+                        sleep(2000);
                         for (Recognition recognition : updatedRecognitions)
                         {
                             telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
@@ -135,54 +136,133 @@ public class WebcamAuto extends LinearOpMode {
                             telemetry.update();
                             if(updatedRecognitions.size() > 0)
                             {
+                                telemetry.addLine("Detection Started HEHEHEHEHE");
+
                                 if(recognition.getLabel().equals("Single"))
                                 {
                                     telemetry.addLine("One Ring Detected");
                                     strafe(-.3);
                                     sleep(800);
+                                    stopRobot();
 
                                     move(-.5);
-                                    sleep(4500);
+                                    sleep(1500);
+                                    stopRobot();
 
-                                    turnRight(.3);
-                                    sleep(300);
+                                    turnLeft(.3);
+                                    sleep(270);
+                                    stopRobot();
+
+                                    move(-.5);
+                                    sleep(1600);
+                                    stopRobot();
+
 
                                     strafe(.3);
-                                    sleep(800);
-
-                                    move(.7);
-                                    sleep(500);
-
+                                    sleep(1200);
                                     stopRobot();
+
+                                    move(1);
+                                    sleep(500);
+                                    stopRobot();
+
+                                    move(-.5);
+                                    sleep(400);
+                                    stopRobot();
+
+                                    tfod.shutdown();
+
+                                    sleep(30000);
+
+
                                 }
 
                                 else if(recognition.getLabel().equals("Quad"))
                                 {
                                     telemetry.addLine("Four Ring Detected");
+                                    strafe(-.3);
+                                    sleep(1200);
+                                    stopRobot();
+
+                                    move(-.5);
+                                    sleep(1500);
+                                    stopRobot();
+
+                                    turnLeft(.3);
+                                    sleep(250);
+                                    stopRobot();
+
+                                    move(-.5);
+                                    sleep(2480);
+                                    stopRobot();
+
+
+//                                    strafe(.3);
+//                                    sleep(800);
+//                                    stopRobot();
+
+                                    move(1);
+                                    sleep(1000);
+                                    stopRobot();
+
+                                    move(-.5);
+                                    sleep(400);
+                                    stopRobot();
+
+                                    tfod.shutdown();
+
+                                    sleep(30000);
+
                                 }
 
-                                else
-                                {
-                                    telemetry.addLine("Nothing Detected");
-//                                    moveDistance(.3, -33);
-//                                    //turnRightDistance(.3, 3);
-//                                    moveDistance(.3, -39);
-//                                    turnRightDistance(.3, -3);
-//                                    //moveDistanceStrafe(.3, 15);
-//                                    sleep(1000); //Drop off wobble goal
-//                                    moveDistance(.7, 10);
-//                                    //moveDistanceStrafe(.3, -25);
-//                                    //moveDistance(.3, 10);
-//                                    turnLeftDistance(.3, -3);
-                                }
+
+
+
+
 
                             }
 
                         }
                       telemetry.update();
+
+                        telemetry.addLine("Nothing Detected");
+
+                        strafe(-.3);
+                        sleep(1300);
+                        stopRobot();
+
+                        move(-.5);
+                        sleep(1500);
+                        stopRobot();
+
+                        turnLeft(.3);
+                        sleep(250);
+                        stopRobot();
+
+                        move(-.5);
+                        sleep(700);
+                        stopRobot();
+
+                        move(1);
+                        sleep(300);
+                        stopRobot();
+
+                        strafe(.3);
+                        sleep(700);
+                        stopRobot();
+
+                        move(-.5);
+                        sleep(400);
+                        stopRobot();
+
+
+                        tfod.shutdown();
+
+                        sleep(30000);
                     }
                 }
             }
+
         }
 
         if (tfod != null) {
