@@ -125,7 +125,7 @@ public class WebcamAuto extends LinearOpMode {
                         telemetry.addData("# Object Detected", updatedRecognitions.size());
                         // step through the list of recognitions and display boundary info.
                         int i = 0;
-                        sleep(2000);
+
                         for (Recognition recognition : updatedRecognitions)
                         {
                             telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
@@ -134,6 +134,7 @@ public class WebcamAuto extends LinearOpMode {
                             telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
                                     recognition.getRight(), recognition.getBottom());
                             telemetry.update();
+                            sleep(2000);
                             if(updatedRecognitions.size() > 0)
                             {
                                 telemetry.addLine("Detection Started HEHEHEHEHE");
